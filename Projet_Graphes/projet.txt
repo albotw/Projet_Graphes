@@ -1,0 +1,25 @@
+on ne travaille que sur des graphes de petersen
+	-> générateur de graphes à faire.
+	-> le graphe est représenté par une matrice d'adjacence
+
+nécessaire de faire une fonction permettant de:
+	-> deux points sont voisins
+	-> deux points ont un voisin commun.
+
+stockage dans un tableau 3D
+	-> [point1][point2]->vector<int>[voisins commums]
+
+modifier colorExact
+
+modifier dsatur
+
+affichage coloration
+
+boucle dsatur/colorExact
+
+
+Générateur de graphes:
+	- les points vont de 0 à n.
+	- les arcs:
+		entre i et i +1
+		entre i et i +k
