@@ -1,5 +1,6 @@
 #include "print.h"
 
+
 void printGraphe(int n)
 {
     for (int i = 0; i < n; i++)
@@ -37,4 +38,20 @@ void printTab(int tab[], int n)
         cout << tab[i] << " - ";
     }
     cout << endl;
+}
+
+void printVoisins()
+{
+    for (int i = 0; i < 2 * n; i++)
+    {
+        for (int j = 0; j < 2 * n; j++)
+        {
+            cout << "voisin[" << i << "][" << j << "] -> ";
+            for (int k = 0; k < voisins[i][j].size(); k++)
+            {
+                cout << voisins[i][j][k] << ", ";
+            }
+            cout << endl;
+        }
+    }
 }

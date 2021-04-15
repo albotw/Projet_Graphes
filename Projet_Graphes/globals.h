@@ -1,10 +1,13 @@
 #pragma once
+#include <vector>
 
-extern const int n = 6;
-extern const int k = 2;
-extern int adj[2 * n][2 * n];
-extern int couleur1[2 * n];
-extern int couleur2[2 * n];
-extern int DSAT[2 * n];
-extern int degre[2 * n];
-extern bool trouve = false;
+using namespace std;
+inline const int n = 7;
+inline const int k = 3;
+inline int adj[2 * n][2 * n];
+inline vector<int> voisins[2 * n][2 * n];
+inline int couleur1[2 * n];
+inline int couleur2[2 * n];
+inline int DSAT[2 * n];
+inline int degre[2 * n];
+inline bool trouve = false;

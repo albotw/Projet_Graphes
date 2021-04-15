@@ -7,3 +7,4 @@ using namespace std;
 void printGraphe(int n);
 void printGrapheRaw(int n);
 void printTab(int tab[], int n);
+void printVoisins();

@@ -9,6 +9,7 @@
 #include "globals.h"
 #include "print.h"
 #include "DSAT.h"
+#include "colorExact.h"
 
 using namespace std;
 
@@ -55,7 +56,16 @@ void generateGraphe(int n, int k)
     }
 }
 
-
+void voisinCommun(int p1, int p2)
+{
+    for (int i = 0; i < 2 * n; i++)
+    {
+        if (adj[p1][i] && adj[p2][i])
+        {
+            voisins[p1][p2].push_back(i);
+        }
+    }
+}
 
 
 
@@ -65,6 +75,22 @@ int main()
 
     printGraphe(2*n);
     printGrapheRaw(2*n);
+
+    for (int i = 0; i < 2*n; i++)
+    {
+        for (int j = 0; j < 2*n; j++)
+        {
+            if (i != j)
+            {
+                voisinCommun(i, j);
+            }
+        }
+    }
+
+    printVoisins();
+
+    colorExact(7);
+    printTab(couleur1, 2 * n);
 
     //int k = DSATUR();
     //cout << "DSAT: coloration en " << k << endl;
