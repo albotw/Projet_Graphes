@@ -4,23 +4,27 @@
 //(pas utilisée par un de ses voisins).
 bool convient(int pt, int couleur)
 {
-
     for (int i = 0; i < 2 * n; i++)
     {
-        //si pt et i sont voisins
-        if (adj[pt][i])
+        
+        if (couleur1[i] != 0)
         {
-            if (abs(couleur - couleur1[i]) < 2)
+            
+            //si pt et i sont voisins
+            if (at(adj, pt, i) == 1)
             {
-                return false;
+                if (abs(couleur - couleur1[i]) < 2)
+                {
+                    return false;
+                }
             }
-        }
 
-        if (!voisins[pt][i].empty())
-        {
-            if (abs(couleur - couleur1[i]) < 1)
+            if (at(voisins, pt, i) == 1)
             {
-                return false;
+                if (abs(couleur - couleur1[i]) < 1)
+                {
+                    return false;
+                }
             }
         }
     }
@@ -28,17 +32,31 @@ bool convient(int pt, int couleur)
     return true;
 }
 
+void copy(int* tab1, int* tab2)
+{
+    for (int i = 0 ; i < 2 * n ; i++)
+    {
+        tab1[i] = tab2[i];
+    }
+}
+
 //test récursif de toutes les couleurs possibles pour un point.
 void colorRR(int pt, int nCouleurs)
 {
-    if (pt == 2*n -1)
+    int* temp = new int[2 * n]();
+    copy(temp, couleur1);
+
+    if (pt == 2*n)
     {
-        cout << "coloration en " << nCouleurs << endl;
-        for (int i = 0; i < 2*n; i++)
+        
+        cout << "resultat exact: " << nCouleurs << endl;
+        /*for (int i = 0; i < 2*n; i++)
         {
             cout << "couleur de " << i << " : " << couleur1[i] << endl;
-        }
+        }*/
+        printTab(couleur1, 2 * n);
         trouve = true;
+        delete[] temp;
     }
     else
     {
@@ -47,22 +65,25 @@ void colorRR(int pt, int nCouleurs)
             if (convient(pt, couleur))
             {
                 couleur1[pt] = couleur;
-                cout << "couleur de " << pt << " : " << couleur1[pt] << endl;
+                //cout << "couleur de " << pt << " : " << couleur1[pt] << endl;
                 colorRR(pt + 1, nCouleurs);
                 if (trouve) return;
             }
         }
+        copy(couleur1, temp);
+        delete[] temp;
     }
 }
+
 
 //teste toutes les combinaisons pour n couleurs
 void colorExact(int nCouleurs)
 {
-    for (int i = 0; i < 2*n; i++)
+    
+    for (int i = 0; i < 2 * n; i++)
     {
         couleur1[i] = 0;
-        colorRR(0, nCouleurs);
-        if (!trouve) cout << "pas de coloration en " << nCouleurs << " couleurs" << endl;
     }
-    
+    colorRR(0, nCouleurs);
+    if (!trouve) cout << "pas de coloration en " << nCouleurs << " couleurs" << endl;   
 }

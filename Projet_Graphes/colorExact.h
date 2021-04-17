@@ -2,6 +2,7 @@
 #include <iostream>
 #include <math.h>
 #include "globals.h"
+#include "print.h"
 using namespace std;
 bool convient(int pt, int couleur);
 

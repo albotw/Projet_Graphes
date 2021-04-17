@@ -2,11 +2,29 @@
 
 bool convientDSAT(int point, int couleur)
 {
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < 2 * n; i++)
     {
-        if (adj[point][i] && couleur2[i] == couleur)
-            return false;
+        if (couleur2[i] != 0)
+        {
+            //si pt et i sont voisins
+            if (at(adj, point, i))
+            {
+                if (abs(couleur - couleur2[i]) < 2)
+                {
+                    return false;
+                }
+            }
+
+            if (at(voisins, point, i))
+            {
+                if (abs(couleur - couleur2[i]) < 1)
+                {
+                    return false;
+                }
+            }
+        }
     }
+
     return true;
 }
 
@@ -16,7 +34,7 @@ int dsatMax()
     int maxDSAT = -1;
     int sMax = 0;
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < 2 * n; i++)
     {
         if (couleur2[i] == 0 && (DSAT[i] > maxDSAT || (DSAT[i] == maxDSAT && degre[i] > maxDeg)))
         {
@@ -36,14 +54,14 @@ int DSATUR()
     int max = 0;
     int couleurMax = 0;
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < 2 * n; i++)
     {
         couleur2[i] = 0;
         DSAT[i] = 0;
         degre[i] = 0;
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < 2 * n; j++)
         {
-            if (adj[i][j])
+            if (at(adj, i, j))
             {
                 degre[i]++;
             }
@@ -51,7 +69,7 @@ int DSATUR()
         DSAT[i] = degre[i];
     }
 
-    while (cpt < n)
+    while (cpt < 2 * n)
     {
         couleur = 1;
         max = dsatMax();
@@ -59,9 +77,9 @@ int DSATUR()
         {
             couleur++;
         }
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < 2 * n; j++)
         {
-            if (adj[max][j] && convientDSAT(j, couleur))
+            if (at(adj, max, j) && convientDSAT(j, couleur))
             {
                 DSAT[j]++;
             }

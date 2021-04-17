@@ -23,3 +23,22 @@ Générateur de graphes:
 	- les arcs:
 		entre i et i +1
 		entre i et i +k
+
+
+Le rapport est une synthèse de 4-5 pages sera déposé avec le code source du projet sur teams le 11/05 maxi (L3Graphes/Général/Devoirs) et contiendra :
+
+
+	
+bref rappel de la problématique (reformuler le sujet)
+	fonctionnement de l'application : comment on l'utilise, architecture (codage du graphe, explication de qques passages du code les plus importants, etc)
+	tableaux des résultats produits par ColorExact et DSATUR en faisant varier n et k avec indication du temps de calcul pour les plus grandes valeurs de n et quelques exemples de colorations obtenues
+	limitations de la version actuelle et possibilités d'extensions. Vous pourrez traiter au choix l'une de celles-ci :
+	
+
+		
+comment optimiser ColorExact pour obtenir des résultats pour des n plus grands en temps raisonnable
+		recherche d'une définition du degré de saturation pour la L'2,1)-coloration qui rend DSATUR plus performant
+		extension à la classe des prismes généralisés : calculer des L(2,1)-coloration sur des graphes G(n) générés aléatoirement, où G(n) est constitué de deux cycles de longueur n en reliant chaque sommet d'un cycle avec un sommet de l'autre cycle de sorte que le graphe soit 3-régulier
+	
+	
+	code source en annexe ou en fichiers séparés

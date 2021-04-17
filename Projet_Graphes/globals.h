@@ -2,12 +2,15 @@
 #include <vector>
 
 using namespace std;
-inline const int n = 7;
-inline const int k = 3;
-inline int adj[2 * n][2 * n];
-inline vector<int> voisins[2 * n][2 * n];
-inline int couleur1[2 * n];
-inline int couleur2[2 * n];
-inline int DSAT[2 * n];
-inline int degre[2 * n];
+inline int n;
+inline int k;
+inline int* adj = NULL;
+inline int* voisins = NULL;
+inline int* couleur1 = NULL;
+inline int* couleur2 = NULL;
+inline int* DSAT = NULL;
+inline int* degre = NULL;
 inline bool trouve = false;
+
+inline int at(int* tab, int i, int j) { return tab[i * 2 * n + j]; }
+inline void set(int* tab, int i, int j, int value) { tab[i * 2 * n + j] = value; }
