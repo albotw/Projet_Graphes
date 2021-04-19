@@ -6,7 +6,6 @@ bool convient(int pt, int couleur)
 {
     for (int i = 0; i < 2 * n; i++)
     {
-        
         if (couleur1[i] != 0)
         {
             
@@ -19,6 +18,7 @@ bool convient(int pt, int couleur)
                 }
             }
 
+            //si pt et i ont un voisin commun
             if (at(voisins, pt, i) == 1)
             {
                 if (abs(couleur - couleur1[i]) < 1)
@@ -28,7 +28,6 @@ bool convient(int pt, int couleur)
             }
         }
     }
-
     return true;
 }
 

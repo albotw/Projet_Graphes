@@ -1,4 +1,4 @@
-#include <cstdlib>
+#include <stdlib.h>
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -12,12 +12,9 @@
 #include "DSAT.h"
 #include "colorExact.h"
 
-using std::chrono::high_resolution_clock;
-using std::chrono::duration_cast;
-using std::chrono::duration;
-using std::chrono::milliseconds;
 
 using namespace std;
+using namespace std::chrono;
 
 void generateGraphe(int n, int k)
 {
@@ -73,7 +70,19 @@ void voisinCommun(int p1, int p2)
     }
 }
 
-
+void generateVoisins()
+{
+    for (int i = 0; i < 2 * n; i++)
+    {
+        for (int j = 0; j < 2 * n; j++)
+        {
+            if (i != j)
+            {
+                voisinCommun(i, j);
+            }
+        }
+    }
+}
 
 void reset()
 {
@@ -91,96 +100,62 @@ void reset()
     DSAT = new int[2 * n]();
     degre = new int[2 * n]();
     trouve = false;
-}
 
-void generateVoisins()
-{
-    for (int i = 0; i < 2 * n; i++)
-    {
-        for (int j = 0; j < 2 * n; j++)
-        {
-            if (i != j)
-            {
-                voisinCommun(i, j);
-            }
-        }
-    }
+    generateGraphe(n, k);
+    generateVoisins();
 }
 
 void loop()
 {
-    for (k; k <= n / 2; k++)
-    {
-        cout << endl;
-        cout << "n: " << n << " k: " << k << endl;
-        reset();
-        generateGraphe(n, k);
-        generateVoisins();
-        auto start = high_resolution_clock::now();
-        int nCouleurs = DSATUR();
-        auto end = high_resolution_clock::now();
-        auto delta = duration_cast<milliseconds>(end - start);
-        cout << "resultat DSAT: " << nCouleurs;
-        cout << " | " << delta.count() << " ms" << endl;
-        printTab(couleur2, 2 * n);
+    cout << endl;
+    cout << "n: " << n << " k: " << k << endl;
+    reset();
 
-        start = high_resolution_clock::now();
-        int i = 0;
-        do
-        {
-            trouve = false;
-            colorExact(i);
-            i++;
-        } while (!trouve);
-        end = high_resolution_clock::now();
-        delta = duration_cast<milliseconds>(end - start);
-        cout << "obtenu en " << delta.count() << " ms" << endl;
-    }
+    auto startDSAT = high_resolution_clock::now();
+
+    int nCouleurs = DSATUR();
+
+    auto endDSAT = high_resolution_clock::now();
+
+    cout << "resultat DSAT: " << nCouleurs << " | " << duration_cast<milliseconds>(endDSAT - startDSAT).count() << " ms" << endl;
+    printTab(couleur2, 2 * n);
+
+    auto startExact = high_resolution_clock::now();
+    int i = 0;
+    do
+    {
+        trouve = false;
+        colorExact(i);
+        i++;
+    } while (!trouve);
+    auto endExact = high_resolution_clock::now();
+
+    cout << "obtenu en " << duration_cast<milliseconds>(endExact - startExact).count() << " ms" << endl;
 }
 
 int main()
 {
     cout << "entrez n" << endl;
     cin >> n;
+    
     cout << "entrez k" << endl;
     cin >> k;
-    loop();
-    /*
-    reset();
 
-    generateGraphe(n, k);
+    char tmp = '\0';
+    cout << "simple/multiple ? (s|m)" << endl;
+    cin >> tmp;
+    tmp == 's' ? single = true : single = false;
 
-    cout << "arcs: " << endl;
-    printGraphe(2*n);
-    cout << "matrice d'adjacence: " << endl;
-    printGrapheRaw(2*n);
-
-    for (int i = 0; i < 2*n; i++)
+    if (!single)
     {
-        for (int j = 0; j < 2*n; j++)
+        for (k; k <= n / 2; k++)
         {
-            if (i != j)
-            {
-                voisinCommun(i, j);
-            }
+            loop();
         }
     }
-
-    cout << "affichage colorExact" << endl;
-    colorExact(6);
-    
-    cout << "affichage DSATUR" << endl;
-    cout << DSATUR() << endl;
-
-    cout << "résultats colorExact: " << endl;
-    printTab(couleur1, 2 * n);
-    cout << "résultats DSATUR: " << endl; 
-    printTab(couleur2, 2 * n);
-
-    //int k = DSATUR();
-    //cout << "DSAT: coloration en " << k << endl;
-
-    //printTab(couleur2, n);
-    */
+    else
+    {
+        loop();
+    }
     return 0;
 }
