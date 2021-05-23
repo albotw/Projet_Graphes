@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _H_PRINT_
+#define _H_PRINT_
 #include <iostream>
 #include "globals.h"
 
@@ -8,3 +9,5 @@ void printGraphe(int n);
 void printGrapheRaw(int n);
 void printTab(int tab[], int n);
 void printVoisins();
+
+#endif

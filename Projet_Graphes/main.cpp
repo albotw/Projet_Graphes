@@ -12,13 +12,12 @@
 #include "DSAT.h"
 #include "colorExact.h"
 
-
 using namespace std;
 using namespace std::chrono;
 
 void generateGraphe(int n, int k)
 {
-    if (n >= 3 && 1 <= k <= n / 2)
+    if (n >= 3 && 1 <= k && k <= n / 2)
     {
         //boucle polygone externe
         for (int i = 0; i < n; i++)
@@ -38,24 +37,22 @@ void generateGraphe(int n, int k)
             set(adj, i, i + n, 1);
             set(adj, i + n, i, 1);
         }
-        
 
         //boucle polygone interne
-        for (int i = n; i < 2*n; i++)
+        for (int i = n; i < 2 * n; i++)
         {
-            //application du modulo si dépassement de tableau
-            int delta = i + k > 2 * n - 1? (i % n) + k : i + k;
+            //application du modulo si dï¿½passement de tableau
+            int delta = i + k > 2 * n - 1 ? (i % n) + k : i + k;
             set(adj, i, delta, 1);
             set(adj, delta, i, 1);
         }
-        
+
         if (k == 1)
         {
             //fermeture polygone interne
             set(adj, 2 * n - 1, n, 1);
             set(adj, n, 2 * n - 1, 1);
         }
-
     }
 }
 
@@ -63,7 +60,7 @@ void voisinCommun(int p1, int p2)
 {
     for (int i = 0; i < 2 * n; i++)
     {
-        if(at(adj, p1, i) == 1 && at(adj, p2, i) == 1)
+        if (at(adj, p1, i) == 1 && at(adj, p2, i) == 1)
         {
             set(voisins, p1, p2, 1);
         }
@@ -86,13 +83,19 @@ void generateVoisins()
 
 void reset()
 {
-    if (adj != NULL) delete[] adj;
-    if (voisins != NULL) delete[] voisins;
-    if (couleur1 != NULL) delete[] couleur1;
-    if (couleur2 != NULL) delete[] couleur2;
-    if (DSAT != NULL) delete[] DSAT;
-    if (degre != NULL) delete[] degre;
-    
+    if (adj != NULL)
+        delete[] adj;
+    if (voisins != NULL)
+        delete[] voisins;
+    if (couleur1 != NULL)
+        delete[] couleur1;
+    if (couleur2 != NULL)
+        delete[] couleur2;
+    if (DSAT != NULL)
+        delete[] DSAT;
+    if (degre != NULL)
+        delete[] degre;
+
     adj = new int[2 * n * 2 * n]();
     voisins = new int[2 * n * 2 * n]();
     couleur1 = new int[2 * n]();
@@ -137,7 +140,7 @@ int main()
 {
     cout << "entrez n" << endl;
     cin >> n;
-    
+
     cout << "entrez k" << endl;
     cin >> k;
 
@@ -148,7 +151,7 @@ int main()
 
     if (!single)
     {
-        for (k; k <= n / 2; k++)
+        for (; k <= n / 2; k++)
         {
             loop();
         }
