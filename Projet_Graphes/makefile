@@ -1,2 +1,2 @@
  graphe : colorExact.cpp colorExact.h DSAT.cpp DSAT.h globals.h main.cpp print.cpp print.h
-	
+	g++ main.cpp globals.h colorExact.cpp colorExact.h DSAT.cpp DSAT.h print.cpp print.h -o graphe -Wall -std=c++17
